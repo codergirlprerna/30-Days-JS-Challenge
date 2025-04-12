@@ -59,3 +59,53 @@ queueEle.front();
 queueEle.display();
 
 //task6:jo queue bnayi hai uska use karke ek simple printer queue simulate karo jahan print jobs queue mein add hote hai aur fifo order mein process hote hai.
+
+class Queue{
+    constructor(){
+        this.items=[];
+    }
+
+    enqueue(item){
+        this.items.push(item);
+    }
+
+    dequeue(){
+        return this.items.shift();
+    }
+    isEmpty(){
+        return this.items.length===0;
+    }
+    size(){
+        return this.items.length;
+    }
+    peek(){
+        return this.items[0];
+    }
+}
+
+class PrintJob{
+    constructor(name){
+        this.name=name;
+    }
+}
+
+const printerQueue = new Queue();
+
+printerQueue.enqueue(new PrintJob("Job 1 - Resume"));
+printerQueue.enqueue(new PrintJob("Job 2 - Report"));
+printerQueue.enqueue(new PrintJob("Job 3 - Invoice"));
+
+function processPrintQueue(){
+    if(printerQueue.isEmpty()){
+        console.log("All print jobs completed");
+        return;
+    }
+
+    const currentJob = printerQueue.dequeue();
+    console.log("Printing", currentJob.name);
+
+    setTimeout(processPrintQueue,1000);
+
+}
+
+processPrintQueue();
