@@ -11,13 +11,18 @@
         <h1>Weather App</h1>
         <input type="text" id="cityInput" placeholder="Enter city name" />
         <button onclick="getWeather()">Get Weather</button>
-    
+
     
         <div class="weather-info">
+
+            <div id="forecast" class="forecast-container"></div>
+
             <p>City:<span id="city"></span></p>
             <p>Temperature:<span id="temperature"></span></p>
             <p>Condition:<span id="condition"></span></p>
         </div>
+        <h2>5-Day Forecast</h2>
+        <div id="forecast" class="forecast-container"></div>        
     </div>
     <script src="script.js"></script>
 </body>

@@ -2,13 +2,14 @@ body{
     margin: 0;
     font-family: Arial, sans-serif;
     background: linear-gradient(to right,#83a4d4,#b6fbff);
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
 .weather-container{
+    max-height: 400px;
     background-color: white;
     padding: 30px 40px;
     border-radius: 10px;
@@ -23,4 +24,16 @@ body{
 .weather-info p{
     margin: 10px 0;
     font-size: 18px;
+}
+.forecast-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.forecast-item {
+    background: #e0f7fa;
+    padding: 10px;
+    border-radius: 8px;
 }

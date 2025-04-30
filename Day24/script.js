@@ -8,6 +8,8 @@ function getWeather() {
     }
 
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+
 
     fetch(apiUrl)
         .then(response => {
@@ -26,4 +28,39 @@ function getWeather() {
             console.log("Error fetching data:", error);
             alert("Couldn't fetch weather data. Please try again.");
         });
+
+    fetch(forecastUrl)
+    .then(response => response.json())
+    .then(forecastData => {
+        console.log("Forecast Data: ", forecastData);
+        displayForecast(forecastData);
+    })
+    .catch(error => console.log("Error fetching forecast:", error));
+
+}
+function displayForecast(data) {
+    const forecastContainer = document.getElementById("forecast");
+    forecastContainer.innerHTML = ""; 
+
+    const dailyForecast = data.list.filter(item => item.dt_txt.includes("12:00:00"));
+
+    dailyForecast.forEach(day => {
+        const date = new Date(day.dt_txt).toLocaleDateString();
+        const temp = day.main.temp;
+        const condition = day.weather[0].description;
+        const icon = day.weather[0].icon;
+        const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+
+
+        const forecastItem = document.createElement("div");
+        forecastItem.classList.add("forecast-item");
+        forecastItem.innerHTML = `
+            <p><strong>${date}</strong></p>
+            <p>${temp}°C, ${condition}</p>
+            <img src="${iconUrl}" alt="${condition}">
+
+        `;
+        forecastContainer.appendChild(forecastItem);
+
+    });
 }
